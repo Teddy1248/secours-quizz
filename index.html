@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quiz interactif sur les gestes de premiers secours basé sur les références PSC France 2026." />
+  <meta name="theme-color" content="#c9182b" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2NCA2NCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2I1MTUyYicvPjxzdG9wIG9mZnNldD0nMScgc3RvcC1jb2xvcj0nI2ViMzM0OScvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCcgcng9JzE4JyBmaWxsPSd1cmwoI2cpJy8+PHJlY3QgeD0nMjcnIHk9JzEzJyB3aWR0aD0nMTAnIGhlaWdodD0nMzgnIHJ4PSc0JyBmaWxsPSd3aGl0ZScvPjxyZWN0IHg9JzEzJyB5PScyNycgd2lkdGg9JzM4JyBoZWlnaHQ9JzEwJyByeD0nNCcgZmlsbD0nd2hpdGUnLz48L3N2Zz4=" />
+  <title>SecoursQuiz — Testez vos réflexes de premiers secours</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="emergency-bar" role="note">
+    <div class="container emergency-inner">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <strong>Urgence réelle :</strong>
+      <span>15 SAMU · 18 Pompiers · 112 Urgences européennes · 114 urgence accessible</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="SecoursQuiz - Accueil">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="cross-v"></span><span class="cross-h"></span>
+        </span>
+        <span>Secours<span>Quiz</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#themes">Thèmes</a>
+        <a href="#method">Comment ça marche</a>
+        <a href="#sources">Sources</a>
+      </nav>
+      <button class="nav-cta" id="navQuickBtn" type="button">Quiz express</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-orb hero-orb-one"></div>
+      <div class="hero-orb hero-orb-two"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>Référentiel PSC France · 2026</span></div>
+          <h1>Apprenez les bons gestes.<br><span>Testez vos réflexes.</span></h1>
+          <p class="hero-text">400 questions pour apprendre à mieux réagir face aux urgences du quotidien. Choisissez un thème, répondez, puis découvrez immédiatement la correction expliquée.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#themes">Choisir un thème <span aria-hidden="true">→</span></a>
+            <button class="btn btn-secondary" id="heroQuickBtn" type="button">⚡ Lancer un quiz express</button>
+          </div>
+          <div class="hero-note">
+            <span aria-hidden="true">ⓘ</span>
+            <span>Ce site est pédagogique et ne remplace pas une formation pratique aux premiers secours.</span>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Aperçu des statistiques du quiz">
+          <div class="hero-card-top">
+            <span class="mini-badge">Votre entraînement</span>
+            <span class="status-pill"><span></span> Prêt</span>
+          </div>
+          <div class="big-score">400</div>
+          <p>questions disponibles</p>
+          <div class="stats-grid">
+            <div><strong>20</strong><span>thèmes</span></div>
+            <div><strong id="completedCount">0</strong><span>thèmes terminés</span></div>
+            <div><strong id="bestAverage">—</strong><span>meilleure moyenne</span></div>
+          </div>
+          <div class="mini-progress-block">
+            <div class="mini-progress-head"><span>Progression globale</span><strong id="globalProgressLabel">0%</strong></div>
+            <div class="mini-progress"><span id="globalProgressBar"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section themes-section" id="themes">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">20 parcours</span>
+            <h2>Choisissez votre thème</h2>
+            <p>Chaque thème contient 20 questions avec correction immédiate et explication.</p>
+          </div>
+          <button class="text-button" id="resetProgressBtn" type="button">Réinitialiser ma progression</button>
+        </div>
+        <div class="theme-grid" id="themeGrid"></div>
+      </div>
+    </section>
+
+    <section class="section method-section" id="method">
+      <div class="container">
+        <div class="section-head centered">
+          <span class="section-kicker">Simple et efficace</span>
+          <h2>Comment ça marche ?</h2>
+          <p>Une méthode courte pour réviser, comprendre et recommencer jusqu'à automatiser les bons réflexes.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-card">
+            <span class="step-number">01</span>
+            <div class="method-icon">🎯</div>
+            <h3>Choisissez un thème</h3>
+            <p>Travaillez un sujet précis : hémorragies, étouffement, RCP, DAE, brûlures, traumatismes…</p>
+          </article>
+          <article class="method-card">
+            <span class="step-number">02</span>
+            <div class="method-icon">🧩</div>
+            <h3>Répondez aux 20 questions</h3>
+            <p>Les questions sont mélangées à chaque tentative pour éviter l'apprentissage mécanique de l'ordre.</p>
+          </article>
+          <article class="method-card">
+            <span class="step-number">03</span>
+            <div class="method-icon">💡</div>
+            <h3>Comprenez la correction</h3>
+            <p>Chaque réponse est accompagnée d'une explication courte pour retenir le bon geste et le bon raisonnement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section sources-section" id="sources">
+      <div class="container sources-card">
+        <div class="sources-copy">
+          <span class="section-kicker light">Contenu vérifié</span>
+          <h2>Des questions basées sur les références françaises</h2>
+          <p>Le contenu pédagogique reprend les principes des Références techniques nationales « Premiers Secours Citoyen » publiées en juillet 2026, complétées par les informations de la Sécurité civile, de l’Assurance Maladie, des centres antipoison, de la Croix-Rouge française et du ministère chargé de la Santé.</p>
+          <div class="source-links">
+            <a href="https://www.securite-civile.interieur.gouv.fr/documentation/secourisme-et-associations/secourisme-references-techniques-nationales.html" target="_blank" rel="noopener noreferrer">Références PSC 2026 ↗</a>
+            <a href="https://www.croix-rouge.fr/les-gestes-de-premiers-secours" target="_blank" rel="noopener noreferrer">Croix-Rouge française ↗</a>
+            <a href="https://sante.gouv.fr/soins-et-maladies/maladies/maladies-cardiovasculaires-et-avc/accident-vasculaire-cerebral-avc/article/les-signes-de-l-avc" target="_blank" rel="noopener noreferrer">Signes de l'AVC ↗</a>
+          </div>
+        </div>
+        <div class="source-badge" aria-hidden="true">
+          <span>PSC</span><strong>2026</strong><small>France</small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true"><span class="cross-v"></span><span class="cross-h"></span></span>
+          <span>Secours<span>Quiz</span></span>
+        </div>
+        <p>Apprendre les gestes qui peuvent faire la différence.</p>
+      </div>
+      <p class="footer-disclaimer">En situation réelle, appelez les services d'urgence et suivez leurs consignes. Ce quiz ne remplace pas une formation PSC.</p>
+    </div>
+  </footer>
+
+  <div class="quiz-overlay" id="quizOverlay" aria-hidden="true">
+    <div class="quiz-shell" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+      <div class="quiz-topbar">
+        <button class="icon-button" id="closeQuizBtn" type="button" aria-label="Fermer le quiz">×</button>
+        <div class="quiz-title-wrap">
+          <span id="quizIcon" aria-hidden="true">❤️</span>
+          <div>
+            <strong id="quizTitle">Quiz</strong>
+            <small id="quizSubtitle">20 questions</small>
+          </div>
+        </div>
+        <div class="quiz-score-live">Score <strong id="liveScore">0</strong></div>
+      </div>
+
+      <div class="quiz-progress-row">
+        <div class="quiz-progress-meta"><span id="questionCounter">Question 1/20</span><span id="questionLevel">Débutant</span></div>
+        <div class="quiz-progress-track"><span id="quizProgressBar"></span></div>
+      </div>
+
+      <div class="quiz-content" id="quizContent">
+        <div class="question-card">
+          <h2 id="questionText"></h2>
+          <div class="answers" id="answers"></div>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+          <div class="quiz-actions-row">
+            <button class="btn btn-primary next-btn" id="nextQuestionBtn" type="button" disabled>Question suivante <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-view" id="resultView" hidden>
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <span class="section-kicker">Quiz terminé</span>
+        <h2 id="resultTitle">Bravo !</h2>
+        <p id="resultMessage"></p>
+        <div class="result-score"><strong id="finalScore">0/20</strong><span id="finalPercent">0%</span></div>
+        <div class="result-actions">
+          <button class="btn btn-primary" id="retryBtn" type="button">Recommencer</button>
+          <button class="btn btn-secondary" id="backThemesBtn" type="button">Retour aux thèmes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
